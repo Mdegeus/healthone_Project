@@ -20,7 +20,7 @@
                     <a class="nav-link"  href="#">registreren</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">contact</a>
+                    <a class="nav-link" href="../contact">contact</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">

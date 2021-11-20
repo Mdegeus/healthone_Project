@@ -24,8 +24,8 @@ include_once('defaults/head.php');
             global $products;
             global $categoryId;
         ?>
+        <?php $index = 0 ?>
         <?php foreach($products as $product):?>
-            
             <div class="col-sm-4 col-md-3">
                 <div class="card">
                     <div class="card-body text-center">
@@ -36,7 +36,6 @@ include_once('defaults/head.php');
                     <div class="card-title mb-3"> <?= $product->title ?> </div>
                 </div>
             </div>
-
         <?php endforeach ?>
     </div>
     <hr>

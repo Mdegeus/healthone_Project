@@ -26,3 +26,15 @@ body {
 .product-img {
     width: 70%;
 }
+
+.reviewCardHigh {
+    margin: 5px 0 5px 0;
+    border-left-width: .4em;
+    border-color: rgb(63, 255, 73);
+}
+
+.reviewCardLow {
+    margin: 5px 0 5px 0;
+    border-left-width: .4em;
+    border-color: rgb(255, 92, 63);
+}
