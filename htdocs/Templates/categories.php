@@ -22,16 +22,18 @@ include_once('defaults/head.php');
     <div class="row gy-3 ">
         <?php global $categories ?>
         <?php foreach($categories as $categorie):?>
+            <?php if ($categorie->enabled == 1): ?>
             <div class="col-sm-4 col-md-3">
                 <div class="card">
                     <div class="card-body text-center">
-                        <a href="/categories/<?= $categorie->id ?>">
+                        <a href="/category/<?= $categorie->id ?>">
                             <img class="product-img img-responsive center-block" src='<?= $categorie->image ?>'/>
                         </a>
                         <div class="card-title mb-3"> <?= $categorie->title ?> </div>
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
         <?php endforeach ?>     
     </div>
     <hr>

@@ -26,16 +26,18 @@ include_once('defaults/head.php');
         ?>
         <?php $index = 0 ?>
         <?php foreach($products as $product):?>
-            <div class="col-sm-4 col-md-3">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <a href="/categories/<?= $categoryId ?>/product/<?= $product->id ?>">
-                            <img class="product-img img-responsive center-block" src="<?= $product->image ?>"/>
-                        </a>
+            <?php if ($product->enabled == 1): ?>
+                <div class="col-sm-4 col-md-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <a href="/product/<?= $product->id ?>">
+                                <img class="product-img img-responsive center-block" src="<?= $product->image ?>"/>
+                            </a>
+                        </div>
+                        <div class="card-title mb-3"> <?= $product->title ?> </div>
                     </div>
-                    <div class="card-title mb-3"> <?= $product->title ?> </div>
                 </div>
-            </div>
+            <?php endif; ?>
         <?php endforeach ?>
     </div>
     <hr>

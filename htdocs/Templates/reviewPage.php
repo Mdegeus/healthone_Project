@@ -13,6 +13,7 @@
             global $reviews;
             global $categoryId;
             global $productId;
+            global $id;
             ?>
 
             <nav aria-label="breadcrumb">
@@ -42,7 +43,7 @@
                         <?php endfor; ?>
                         <p>Rating: <?= $review->rating ?></p>
                         <p><?= $review->text ?></p>
-                        <small><?=$review->date . " | " . " Review uploaded by: " . $review->name?></small>
+                        <small><?=$review->date . " | " . " Review uploaded by: " . $review->username?></small>
                     </div>
                 </div>
             <?php endforeach; ?>

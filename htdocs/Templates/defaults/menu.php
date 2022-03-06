@@ -16,16 +16,24 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/categories">sportapparaat</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link"  href="#">registreren</a>
-                </li>
+                <?php if (isset($_SESSION['user']) && $_SESSION['user']->id == 1): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">admin page</a>
+                    </li>
+                <?php endif; ?>
                 <li class="nav-item">
                     <a class="nav-link" href="../contact">contact</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">inloggen</a>
+                    <?php if (isset($_SESSION['user'])): ?>
+                        <label for="logoutButton"><?= $_SESSION['user']->username; ?></label>
+                        <a id=logoutButton type="button" class="btn btn-primary block-btn" href="/logout">log uit</a>
+                    <?php else: ?>
+                        <button type="button" class="btn btn-primary block-btn review-form-show-btn" data-bs-toggle="modal" data-bs-target="#loginModal">inloggen</button>
+                        <button type="button" class="btn btn-primary block-btn review-form-show-btn" data-bs-toggle="modal" data-bs-target="#registerModal">register</button>
+                    <?php endif; ?>
                 </li>
             </ul>
         </div>

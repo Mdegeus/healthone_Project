@@ -4,7 +4,10 @@ function getReviews(int $reviewId)
 {
     global $pdo;
 
-    $query = $pdo->prepare("SELECT * FROM reviews WHERE product_id = $reviewId");
+    $query = $pdo->prepare("SELECT reviews.*, users.username FROM reviews 
+    INNER JOIN users 
+    ON users.id = reviews.user_id
+    WHERE product_id = $reviewId");
 
     $query->execute();
 

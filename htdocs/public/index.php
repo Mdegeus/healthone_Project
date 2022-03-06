@@ -4,59 +4,72 @@ require '../Modules/Products.php';
 require '../Modules/Times.php';
 require '../Modules/Database.php';
 require '../Modules/Reviews.php';
+require '../Modules/Users.php';
 
 $request = $_SERVER['REQUEST_URI'];
 $params = explode("/", $request);
 $title = "HealthOne";
 $titleSuffix = "";
 
+session_start();
+
+include_once "../Templates/defaults/modals.php"; //always include modals
+
 switch ($params[1]) {
-    case 'categories':
-        $titleSuffix = ' | Categories';
-        
-        if (isset($_GET['category_id'])) {
-            $categoryId = $_GET['category_id'];
-            $products = getProducts($categoryId);
-            $name = getCategoryName($categoryId);
-
-            if (isset($_GET['product_id'])) {
-
-                $productId = $_GET['product_id'];
-                $product = getProduct($productId);
-
-                if (isset($_GET['review'])) {
-                    $titleSuffix = ' | ' . $product->name . "| Reviews";
-                    $reviews = getReviews($_GET['product_id']);
-                    include_once "../Templates/reviewPage.php";
-                }else{
-
-                $titleSuffix = ' | ' . $product->name;
-                if(isset($_POST['name']) && isset($_POST['review'])) {
-                    saveReview($_POST['name'],$_POST['review']);
-                    $reviews=getReviews($productId);
-                }
-                // TODO Zorg dat je hier de product pagina laat zien
-                include_once "../Templates/productPage.php";
-            }
+    case 'admin':
+        if (isset($_SESSION['user']) && $_SESSION['user']->id == 1) {
+            if (isset($_GET['id'])) {
+                $id = $_GET['id'];
+                $products = getProducts($id);
             } else {
-                // TODO Zorg dat je hier alle producten laat zien van een categorie
-                include_once "../Templates/products.php";
-
-            } 
-        } else {
-            // TODO Toon de categorieen
-            $categories = getCategories();
-            include_once "../Templates/categories.php";
+                $categories = getCategories();
+            }
+            include_once "../Templates/adminpage.php";
         }
+        break;
+    case 'placereview':
+        $id = $_GET['id'];
+        include_once "./forms/placereview.inc.php";
+        break;
+    case 'login':
+        include_once "./forms/login.inc.php";
+        break;
+    case 'register':
+        include_once "./forms/register.inc.php";
+        break;
+    case 'review':
+        $id = $_GET['id'];
+        $reviews = GetReviews($id);
+        include_once "../Templates/reviewPage.php";
+        break;
+    case 'product':
+        $id = $_GET['id'];
+        $product = getProduct($id);
+        include_once "../Templates/productPage.php";
         break;
     case 'contact':
         $times = getTimes();
         include_once "../Templates/contact.php";
         break;
+    case 'category':
+        $id = $_GET['id'];
+        $products = getProducts($id);
+        include_once "../Templates/products.php";
+        break;
+    case 'categories':
+        $categories = getCategories();
+        include_once "../Templates/categories.php";
+        break;
+    case 'action':
+        $titleSuffix = ' | CRUD';
+        include_once "./forms/crud.form.php";
+        break;
+    case 'logout':
+        $_SESSION['user'] = null;
     default:
         $titleSuffix = ' | Home';
         include_once "../Templates/home.php";
-
+        break;
 }
 
 function getTitle() {
